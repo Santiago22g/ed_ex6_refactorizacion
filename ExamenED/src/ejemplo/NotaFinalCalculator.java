@@ -1,6 +1,8 @@
 package ejemplo;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NotaFinalCalculator {
 
@@ -14,6 +16,8 @@ public class NotaFinalCalculator {
         "RA6", 0.20
     );
     
+    private static final Logger logger=Logger.getLogger(NotaFinalCalculator.class.getName());
+    
     private static String mensaje="Nota para";
     
     // Método principal: punto de entrada del programa
@@ -21,7 +25,7 @@ public class NotaFinalCalculator {
         Map<String, Double> notasRA = leerNotasDesdeTeclado();
 
         double notaFinal = calcularNotaFinal(notasRA);
-        System.out.println("Nota final de Entornos de Desarrollo: " + notaFinal);
+        logger.log(Level.INFO,"Nota final de Entornos de Desarrollo: {0}",notaFinal);
 
         boolean aprobado = apruebaTodosLasRAs(notasRA);
         System.out.println("¿Ha aprobado todas las RAs?: " + (aprobado ? "Sí" : "No"));
