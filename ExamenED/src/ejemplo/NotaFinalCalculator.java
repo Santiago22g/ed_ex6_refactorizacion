@@ -45,7 +45,7 @@ public class NotaFinalCalculator {
 
 		if (notasRA == null || notasRA.isEmpty()) {
 			// No se hace nada si no hay notas (notaFinal se queda en 0.0)
-		} else if (notasRA != null) {
+		} else {
 			if (notasRA.size() > 0) {
 
 				for (Map.Entry<String, Double> entrada : PESOS_RA.entrySet()) {
