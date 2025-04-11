@@ -8,10 +8,13 @@ cambios realizados en la refactorizacion de codigo._**
 Se ha eliminado el label presente en el codigo,
 el cual daba un problema tipo **blocker**
 
+![corregido sin label](C:\Users\santi\Desktop\ExamenED\img\Captura_sinLabel.png)
+
 ## Error high
 
-He cambiado 4 mensajes 'Nota para' por un _String mensaje_
-que dice 'Nota para'
+He cambiado 4 mensajes 'Nota para' por un
+
+>String mensaje="Nota para";
 
 ## Cambio a loggger
 
