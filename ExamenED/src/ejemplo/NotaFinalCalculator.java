@@ -96,7 +96,7 @@ public class NotaFinalCalculator {
     }
 
     // Evalúa cada RA y genera un mensaje con la calificación textual    
-    //cambiada la dficultad cognitiva
+    
     private static void procesaCalificaciones(Map<String, Double> notasRA) {
         StringBuilder resultado = new StringBuilder();
 
@@ -108,7 +108,6 @@ public class NotaFinalCalculator {
 
         for (String ra : PESOS_RA.keySet()) {
             double nota = notasRA.getOrDefault(ra, 0.0);
-
             if (nota < 0) {
                 resultado.append("Error: ").append(ra).append(" es negativa.\n");
             } else if (nota > 10) {
@@ -170,12 +169,13 @@ public class NotaFinalCalculator {
 
 
 
-    // Determina si el alumno ha aprobado todas las RAs
+ // Determina si el alumno ha aprobado todas las RAs
     private static boolean apruebaTodosLasRAs(Map<String, Double> notasRA) {
-        Map<String, Double> map = Math.random() > -1 ? notasRA : null;
-
+        if (notasRA == null) {
+            return false;
+        }
         for (String ra : PESOS_RA.keySet()) {
-            Double nota = map.get(ra); 
+            Double nota = notasRA.get(ra);
             if (nota == null || nota < 5.0) {
                 return false;
             }
