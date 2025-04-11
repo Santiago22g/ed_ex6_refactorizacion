@@ -30,11 +30,11 @@ public class NotaFinalCalculator {
         boolean aprobado = apruebaTodosLasRAs(notasRA);
         logger.log(Level.INFO,"¿Ha aprobado todas las RAs?: {0}",(aprobado ? "Si" : "No"));
 
-        procesaCalificaciones(notasRA);
-        for (String ra: notasRA.keySet()) {
-        	Double nota = notasRA.get(ra);
-        	clasificarNotaPorSwitch(nota);
+        for (Map.Entry<String, Double> entry : notasRA.entrySet()) {
+            Double nota = entry.getValue();
+            clasificarNotaPorSwitch(nota);
         }
+
         
     }
 
@@ -95,63 +95,45 @@ public class NotaFinalCalculator {
         return notas;
     }
 
-    // Evalúa cada RA y genera un mensaje con la calificación textual
+    // Evalúa cada RA y genera un mensaje con la calificación textual    
+    //cambiada la dficultad cognitiva
     private static void procesaCalificaciones(Map<String, Double> notasRA) {
         StringBuilder resultado = new StringBuilder();
 
-        if (notasRA != null) {
-            for (String ra : PESOS_RA.keySet()) {
-                if (notasRA.containsKey(ra)) {
-                    double nota = notasRA.get(ra);
-                    if (nota >= 0) {
-                        if (nota <= 10) {
-                            if (nota >= 9) {
-                                resultado.append(ra).append(": Excelente\n");
-                            } else if (nota >= 7) {
-                                if (nota >= 8) {
-                                    resultado.append(ra).append(": Notable Alto\n");
-                                } else {
-                                    resultado.append(ra).append(": Notable Bajo\n");
-                                }
-                            } else if (nota >= 5) {
-                                if (nota >= 6) {
-                                    resultado.append(ra).append(": Bien\n");
-                                } else {
-                                    resultado.append(ra).append(": Suficiente\n");
-                                }
-                            } else {
-                                if (nota >= 3) {
-                                    if (nota >= 4) {
-                                        resultado.append(ra).append(": Insuficiente Alto\n");
-                                    } else {
-                                        resultado.append(ra).append(": Insuficiente Medio\n");
-                                    }
-                                } else {
-                                    if (nota > 0) {
-                                        resultado.append(ra).append(": Insuficiente Bajo\n");
-                                    } else {
-                                        resultado.append(ra).append(": Muy Deficiente\n");
-                                    }
-                                }
-                            } 
-                        } else {
-                            resultado.append(mensaje).append(ra).append(" es mayor que 10. Error.\n");
-                            resultado.append(mensaje).append(ra).append(" es mayor que 10. Error.\n");
-                        }
-                    } else {
-                        resultado.append(mensaje).append(ra).append(" es negativa. Error.\n");
-                        resultado.append(mensaje).append(ra).append(" es negativa. Error.\n");
-                    }
-                } else {
-                    resultado.append("No se encontró nota para ").append(ra).append(". Se asumirá 0.\n");
-                }
-            }
-        } else {
+        if (notasRA == null) {
             resultado.append("No se proporcionaron notas.\n");
+            logger.log(Level.INFO, resultado.toString());
+          
         }
-        
-        logger.log(Level.INFO,resultado.toString());
+
+        for (String ra : PESOS_RA.keySet()) {
+            double nota = notasRA.getOrDefault(ra, 0.0);
+
+            if (nota < 0) {
+                resultado.append("Error: ").append(ra).append(" es negativa.\n");
+            } else if (nota > 10) {
+                resultado.append("Error: ").append(ra).append(" es mayor que 10.\n");
+            } else {
+                resultado.append(ra).append(": ").append(getCalificacionTexto(nota)).append("\n");
+            }
+        }
+
+        logger.log(Level.INFO, resultado.toString());
     }
+
+    private static String getCalificacionTexto(double nota) {
+        if (nota >= 9) return "Excelente";
+        if (nota >= 8) return "Notable Alto";
+        if (nota >= 7) return "Notable Bajo";
+        if (nota >= 6) return "Bien";
+        if (nota >= 5) return "Suficiente";
+        if (nota >= 4) return "Insuficiente Alto";
+        if (nota >= 3) return "Insuficiente Medio";
+        if (nota > 0)  return "Insuficiente Bajo";
+        return "Muy Deficiente";
+    }
+
+    
     
     private static void clasificarNotaPorSwitch(double nota) {
         String resultado = "";
