@@ -55,7 +55,7 @@ public class NotaFinalCalculator {
 
 					// Validación: nota fuera de rango
 					if (nota < 0 || nota > 10) {
-						System.err.println("Nota no válida para " + ra + ". Se usará 0.");
+						logger.logp(Level.INFO,"Nota no valida para {0}",ra,". Se usara 0.");
 						nota = 0.0;
 					}
 
