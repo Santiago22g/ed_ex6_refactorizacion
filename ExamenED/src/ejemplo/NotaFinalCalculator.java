@@ -78,16 +78,16 @@ public class NotaFinalCalculator {
         Scanner scanner = new Scanner(System.in);
         Map<String, Double> notas = new HashMap<>();
 
-        System.out.println("Introduce las notas para cada RA (entre 0 y 10):");
+        logger.log(Level.INFO,"Introduce las notas para cada RA (entre 0 y 10:");
 
         for (String ra : PESOS_RA.keySet()) {
-            System.out.print(ra + ": ");
+        	logger.log(Level.INFO,ra,": ");
             try {
                 double nota = Double.parseDouble(scanner.nextLine());
                 notas.put(ra, nota);
             } catch (NumberFormatException e) {
                 // Si la entrada no es válida, se registra como 0
-                System.out.println("Entrada no válida. Se usará 0 para " + ra);
+            	logger.log(Level.INFO,"Entrada no valida. Se usara 0 para {0}",ra);
                 notas.put(ra, 0.0);
             }
         }
@@ -149,8 +149,8 @@ public class NotaFinalCalculator {
         } else {
             resultado.append("No se proporcionaron notas.\n");
         }
-
-        System.out.println(resultado.toString());
+        
+        logger.log(Level.INFO,resultado.toString());
     }
     
     private static void clasificarNotaPorSwitch(double nota) {
@@ -182,7 +182,7 @@ public class NotaFinalCalculator {
                 break;
         }
 
-        System.out.println(resultado);
+        logger.log(Level.INFO,resultado);
     }
 
 
