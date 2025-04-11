@@ -28,7 +28,7 @@ public class NotaFinalCalculator {
         logger.log(Level.INFO,"Nota final de Entornos de Desarrollo: {0}",notaFinal);
 
         boolean aprobado = apruebaTodosLasRAs(notasRA);
-        System.out.println("¿Ha aprobado todas las RAs?: " + (aprobado ? "Sí" : "No"));
+        logger.log(Level.INFO,"¿Ha aprobado todas las RAs?: {0}",(aprobado ? "Si" : "No"));
 
         procesaCalificaciones(notasRA);
         for (String ra: notasRA.keySet()) {
