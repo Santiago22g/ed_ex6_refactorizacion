@@ -129,7 +129,7 @@ public class NotaFinalCalculator {
                                         resultado.append(ra).append(": Muy Deficiente\n");
                                     }
                                 }
-                            }
+                            } 
                         } else {
                             resultado.append(mensaje).append(ra).append(" es mayor que 10. Error.\n");
                             resultado.append(mensaje).append(ra).append(" es mayor que 10. Error.\n");
